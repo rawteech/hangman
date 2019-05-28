@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 import environ
 import os
+from datetime import timedelta
 
 ROOT_DIR = environ.Path(__file__) - 2
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env()
 env.read_env(str(ROOT_DIR.path('.env')))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -42,10 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'hangman'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -111,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Amsterdam'
 
 USE_I18N = True
 
@@ -124,3 +127,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+# For local api testing only
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8080',
+)
+CORS_ORIGIN_REGEX_WHITELIST = (
+    'http://localhost:8080',
+)
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=1000)
+}

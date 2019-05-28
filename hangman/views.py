@@ -2,8 +2,7 @@
 import random
 
 # Django core imports
-from django.shortcuts import get_object_or_404, reverse
-from django.http.response import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 
 # Third party packages
 from rest_framework.permissions import IsAuthenticated
@@ -60,8 +59,15 @@ class GameView(APIView):
         game.space_filled = new_space
         game.score = score
         game.save()
-        return HttpResponseRedirect(reverse(
-            'game_detail', kwargs={'game_id': game.id}))
+        data = {
+            "game_id": game.id,
+            "letter": "",
+            "chances": game.chance_remaining,
+            "spaces": game.space_filled,
+            "score": game.score
+        }
+        return data
+
 
     def get(self, request, game_id=None):
         """
@@ -86,8 +92,15 @@ class GameView(APIView):
             space_filled=space,
             user=self.request.user
         )
-        return HttpResponseRedirect(reverse(
-            'game_detail', kwargs={'game_id': new_game.id}))
+        data = {
+                "game_id": new_game.id,
+                "letter": "",
+                "chances": new_game.chance_remaining,
+                "spaces": new_game.space_filled,
+                "score": new_game.score
+            }
+        game_serializer = GameSerializer(data)
+        return Response(game_serializer.data)
 
     def post(self, request, game_id):
         """
@@ -99,7 +112,10 @@ class GameView(APIView):
         chances = game.chance_remaining
         if chances <= 0:
             return Response("Sorry, no more chances left!")
-        self.play_game(game)
+
+        data = self.play_game(game)
+        game_serializer = GameSerializer(data)
+        return Response(game_serializer.data)
 
 
 class HomeView(APIView):
