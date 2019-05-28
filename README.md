@@ -34,5 +34,5 @@ pip install -r requirements.txt
 ./manage.py runserver
 ```
 
-* Follow the instructions in this repo to setup the User Interface
+* Follow the instructions in [this repo](https://github.com/rawteech/hangman-ui) to setup the User Interface
 
