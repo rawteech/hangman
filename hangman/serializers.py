@@ -7,3 +7,4 @@ class GameSerializer(serializers.Serializer):
     chances = serializers.IntegerField()
     spaces = serializers.CharField(max_length=30)
     score = serializers.IntegerField()
+    player = serializers.CharField(max_length=30)

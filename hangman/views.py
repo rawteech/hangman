@@ -60,6 +60,7 @@ class GameView(APIView):
         game.score = score
         game.save()
         data = {
+            "player": self.request.user.username,
             "game_id": game.id,
             "letter": "",
             "chances": game.chance_remaining,
@@ -68,7 +69,6 @@ class GameView(APIView):
         }
         return data
 
-
     def get(self, request, game_id=None):
         """
         Initialize game
@@ -76,6 +76,7 @@ class GameView(APIView):
         if game_id:
             game = get_object_or_404(Game, id=game_id)
             data = {
+                "player": self.request.user.username,
                 "game_id": game.id,
                 "letter": "",
                 "chances": game.chance_remaining,
@@ -93,6 +94,7 @@ class GameView(APIView):
             user=self.request.user
         )
         data = {
+                "player": self.request.user.username,
                 "game_id": new_game.id,
                 "letter": "",
                 "chances": new_game.chance_remaining,
