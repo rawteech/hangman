@@ -19,7 +19,9 @@ def get_word():
     Select a word randomly from the list and define the space it takes
     Return both the word and the space
     """
-    word_list = ['3dhubs', 'marvin', 'print', 'filament', 'order', 'layer']
+    word_list = [
+        'simba', 'marvin', 'print', 'filament', 'order', 'layer', 'captain'
+    ]
     rand_index = random.randrange(len(word_list))
     # Select a word and convert it into a list
     selected = word_list[rand_index]
