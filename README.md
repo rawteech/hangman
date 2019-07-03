@@ -1,5 +1,5 @@
 # HANGMAN API
-This is the API part of the hangman game
+This is the API part of the [hangman game](https://en.wikipedia.org/wiki/Hangman_(game))
 
 ## Setup
 To get up and running clone the project first then follow the steps below:
