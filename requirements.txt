@@ -4,7 +4,7 @@ Django==2.2.2
 django-cors-headers==3.0.1
 django-environ==0.4.5
 django-filter==2.1.0
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.3.0
 entrypoints==0.3
 flake8==3.7.7
